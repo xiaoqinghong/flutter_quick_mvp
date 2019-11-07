@@ -22,9 +22,9 @@ dart mvp.dart login
 ```
 dart mvp.dart app_setting
 ```
-如图所示
+- 如图所示
 ![image](images/cmd.png)
-然后就可以看到工程中生成了mvp结构和一些.dart文件
+- 然后就可以看到工程中生成了mvp结构和一些.dart文件
 ![image](images/project.png)
 ## http模块
 ###### *lib/http/api.dart
