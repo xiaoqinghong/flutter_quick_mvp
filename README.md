@@ -1,7 +1,7 @@
 # flutter_quick_mvp
 #### gitee: https://gitee.com/xiaoqinghong/flutter_quick_mvp
 #### github: https://github.com/xiaoqinghong/flutter_quick_mvp
-Flutter这个跨平台的解决方案先在正发展的火热，最为Android(搬)开(砖)发(的)，自然是想要了解了解。
+Flutter这个跨平台的解决方案先在正发展的火热，作为Android(搬)开(砖)发(的)，自然是想要了解了解。
 flutter_quick_mvp是一个自己YY的工程结构的想法，之前用Android模板做过[Kotlin版本的MVP](https://github.com/xiaoqinghong/AndroidQuickMVP)
 ## Dio+MVP
 flutter开发中常用的网络请求框架Dio，在这也是用的这个框架。对于MVP的解释我就不啰嗦了，网上到处都能搜到。M(model)、V(view)、P(presenter)。该工程根目录下有个mvp.dart的文件，将会用这个文件来生成对应的mvp代码。
