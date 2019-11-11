@@ -11,12 +11,13 @@ class LoginPresenterImpl extends SimplePresenter<LoginView>
 
   @override
   void login(String phone, String password, String code) {
-    mView.showLoading();
-    _mModel.userLogin(phone, password, code, new ApiStateHook(
-            () => mView.showLoading(),
-            (Map<String, dynamic> data) {},
-            (String msg) => mView.showMessage(msg),
-            () => mView.dismissLoading()),
+    _mModel.userLogin(
+        {"phone": phone, "password": password, "code": code},
+        new ApiStateHook()
+            .onStart(() => mView.showLoading())
+            .onError((String msg) => mView.showMessage(msg))
+            .onFinally(() => mView.dismissLoading())
+            .onSuccess((Map<String, dynamic> resp) {})
     );
   }
 }

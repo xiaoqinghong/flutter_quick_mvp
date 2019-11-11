@@ -58,7 +58,7 @@ class ApiHelper {
   void get(String url,
       Map<String, dynamic> params,
       ApiStateHook hook) {
-    if (hook != null) hook.onStart();
+    if (hook != null) hook.execStart();
     _doRequest(
         "GET", url, params, Headers.jsonContentType, (Response response) {
       if (hook != null) {
@@ -74,7 +74,7 @@ class ApiHelper {
   void post(String url,
       Map<String, dynamic> params,
       ApiStateHook hook) {
-    if (hook != null) hook.onStart();
+    if (hook != null) hook.execStart();
     _doRequest(
         "POST", url, params, Headers.jsonContentType, (Response response) {
       if (hook != null) {
