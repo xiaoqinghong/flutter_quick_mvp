@@ -1,8 +1,9 @@
 import 'dart:io';
 
-// 这里可以替换成自己的包名
+/// 这里替换成自己的包名
 const package = "flutter_quick_mvp";
 
+/// 创建contract
 void _createContract(String pageName, String lowerCasePageName) {
   String path = "lib/mvp/contract/";
   String fileName = "${lowerCasePageName}_contract.dart";
@@ -14,6 +15,7 @@ abstract class ${pageName}View implements IView<${pageName}Presenter> {}''';
   _doCreateFile(path, fileName, template);
 }
 
+/// 创建model
 void _createModel(String pageName, String lowerCasePageName) {
   String path = "lib/mvp/model/";
   String fileName = "${lowerCasePageName}_model.dart";
@@ -21,10 +23,11 @@ void _createModel(String pageName, String lowerCasePageName) {
 import 'package:$package/http/api_helper.dart';
 import 'package:$package/http/api_service.dart';
 
-class ${pageName}Model extends ApiService {}''';
+class ${pageName}Model {}''';
   _doCreateFile(path, fileName, template);
 }
 
+/// 创建presenterImpl
 void _createPresenterImpl(String pageName, String lowerCasePageName) {
   String path = "lib/mvp/presenter/";
   String fileName = "${lowerCasePageName}_presenter_impl.dart";
@@ -42,6 +45,7 @@ class ${pageName}PresenterImpl extends SimplePresenter<${pageName}View> implemen
   _doCreateFile(path, fileName, template);
 }
 
+/// 创建页面
 void _createView(String pageName, String lowerCasePageName) {
   String path = "lib/mvp/view/";
   String fileName = lowerCasePageName + "_page.dart";
