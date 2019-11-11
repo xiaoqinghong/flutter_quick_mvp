@@ -6,21 +6,37 @@ import 'package:dio/dio.dart';
 typedef ServiceSuccessCallBack = void Function(Map<String, dynamic> data);
 typedef ServiceErrorCallBack = void Function(String msg);
 
-abstract class ApiService {
+class ApiStateHook {
+  Function() onStart;
+
+  Function(Map<String, dynamic> data) onSuccess;
+
+  Function(String msg) onError;
+
+  Function() onFinally;
+
+  ApiStateHook(this.onStart, this.onSuccess, this.onError, this.onFinally);
+}
+
+
+class ApiService {
   void proxySuccessCallBack(Response response,
-      ServiceSuccessCallBack callBack) {
-    if (callBack != null) {
+      ApiStateHook hook) {
+    if (hook != null) {
       try {
-        callBack(json.decode(response.toString()));
+        hook.onSuccess(json.decode(response.toString()));
       } catch (e) {
+        hook.onError("数据解析错误");
         print("callBackErr: $e");
       }
     }
+    if (hook != null) hook.onFinally();
   }
 
-  void proxyErrorCallBack(Exception e, ServiceErrorCallBack callBack) {
-    if (callBack != null) {
-      callBack(_parserException(e));
+  void proxyErrorCallBack(Exception e, ApiStateHook hook) {
+    if (hook != null) {
+      hook.onError(_parserException(e));
+      hook.onFinally();
     }
   }
 

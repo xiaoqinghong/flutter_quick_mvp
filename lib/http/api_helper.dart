@@ -1,5 +1,8 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
+
+import 'api_service.dart';
 
 class ApiHelper {
   static ApiHelper _instance;
@@ -53,17 +56,32 @@ class ApiHelper {
   }
 
   void get(String url,
-      [Map<String, dynamic> params,
-      void onSuccess(Response response),
-        void onError(Exception e)]) {
-    _doRequest("GET", url, params, Headers.jsonContentType, onSuccess, onError);
+      Map<String, dynamic> params,
+      ApiStateHook hook) {
+    if (hook != null) hook.onStart();
+    _doRequest(
+        "GET", url, params, Headers.jsonContentType, (Response response) {
+      if (hook != null) {
+        new ApiService().proxySuccessCallBack(response, hook);
+      }
+    }, (Exception e) {
+      if (hook != null) {
+        new ApiService().proxyErrorCallBack(e, hook);
+      }
+    });
   }
 
   void post(String url,
-      [Map<String, dynamic> params,
-      void onSuccess(Response response),
-        void onError(Exception e)]) {
+      Map<String, dynamic> params,
+      ApiStateHook hook) {
+    if (hook != null) hook.onStart();
     _doRequest(
-        "POST", url, params, Headers.jsonContentType, onSuccess, onError);
+        "POST", url, params, Headers.jsonContentType, (Response response) {
+      if (hook != null) {
+        new ApiService().proxySuccessCallBack(response, hook);
+      }
+    }, (Exception e) {
+      if (hook != null) new ApiService().proxyErrorCallBack(e, hook);
+    });
   }
 }
