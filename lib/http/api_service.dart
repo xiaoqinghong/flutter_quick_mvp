@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 
 /// 监听一个api请求的各个阶段
@@ -61,14 +59,12 @@ class ApiStateHook {
   }
 }
 
-
 class ApiService {
   /// 代理成功处理
-  void proxySuccessCallBack(Response response,
-      ApiStateHook hook) {
+  void proxySuccessCallBack(Response response, ApiStateHook hook) {
     if (hook != null) {
       try {
-        hook.onSuccess(json.decode(response.toString()));
+        hook.execSuccess(response.data);
       } catch (e) {
         hook.execError("数据解析错误");
         print("callBackErr: $e");
